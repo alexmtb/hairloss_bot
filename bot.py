@@ -25,12 +25,19 @@ async def start(update, context):
     print("Получена команда /start")
     await update.message.reply_text("Привет! Я бот")
 
-application = Application.builder() \
-    .token(BOT_TOKEN) \
+async def echo(update, context):
+    print("Получено сообщение")
+    await update.message.reply_text(update.message.text)
+
+application = (
+    Application.builder()
+    .token(BOT_TOKEN)
+    .proxy(PROXY_URL)
     .build()
+)
 
 
 application.add_handler(CommandHandler("start", start))
-# application.add_handler(MessageHandler(filters.TEXT, echo))
+application.add_handler(MessageHandler(filters.TEXT, echo))
 
 application.run_polling()
