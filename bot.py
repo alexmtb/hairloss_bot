@@ -4,7 +4,7 @@ from telegram.ext import Application, Updater, CommandHandler, MessageHandler, f
 from dotenv import load_dotenv
 import os
 
-import settings
+import database.settings as settings
 
 logging.basicConfig(filename="bot.log", level=logging.INFO)
 
@@ -24,6 +24,7 @@ print(PROXY_URL)
 async def start(update, context):
     print("Получена команда /start")
     await update.message.reply_text("Привет! Я бот")
+
 
 async def echo(update, context):
     print("Получено сообщение")
