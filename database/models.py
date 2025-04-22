@@ -5,7 +5,7 @@ from session import engine
 from base import Base
 
 
-class Users(Base):
+class User(Base):
     __tablename__ = 'users'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
@@ -21,7 +21,7 @@ class Users(Base):
 class Observations(Base):
     __tablename__ = 'observations'
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'), index=True)
     tg_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.tg_id'), index=True)
     photo_url: Mapped[str] = mapped_column(String, nullable=False)
     model_result: Mapped[str] = mapped_column(String, nullable=False)
