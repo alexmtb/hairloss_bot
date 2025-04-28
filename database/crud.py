@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import User, Observations
+from .models import User, Observations
 
 
 def get_or_create_user(
@@ -25,12 +25,21 @@ def get_or_create_user(
     return user
 
 
-
 def create_observation(
         db: Session,
         id: int,
         tg_id: int,
-        photo_url: str,
+        photo: str,
         model_result: str
 ):
-    pass
+    observation = Observations(
+        id=id,
+        tg_id=tg_id,
+        photo=photo,
+        model_result=model_result
+	)
+    db.add(observation)
+    db.commit()
+    db.refresh(observation)
+    
+    return observation

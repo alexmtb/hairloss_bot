@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column
-from session import engine
-from base import Base
+from database.session import engine
+from .base import Base
 
 
 class User(Base):
@@ -21,9 +21,9 @@ class User(Base):
 class Observations(Base):
     __tablename__ = 'observations'
 
-    id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'), index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     tg_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.tg_id'), index=True)
-    photo_url: Mapped[str] = mapped_column(String, nullable=False)
+    photo: Mapped[str] = mapped_column(String, nullable=False)
     model_result: Mapped[str] = mapped_column(String, nullable=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
